@@ -5,7 +5,7 @@ class Alphabet
   end
 
   def guess(letter)
-    @unguessed.pop(letter)
+    @unguessed.delete(letter)
     @guessed.push(letter)
     p @guessed
   end

@@ -1,4 +1,7 @@
 class Letter
+  attr_accessor :guessed
+  attr_reader :name
+
   def initialize(letter)
     @name = letter
     @guessed = false

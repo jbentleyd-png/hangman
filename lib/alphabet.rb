@@ -19,7 +19,7 @@ class Alphabet
 
   def display
     print "    Wrong Guesses: #{@incorrect_letters_guessed.join(',').red} | "
-    print "#{6 - @incorrect_letters_guessed.length} wrong guesses remaining.\n".red
+    puts "#{6 - @incorrect_letters_guessed.length} wrong guesses remaining.\n".red
   end
 
 end

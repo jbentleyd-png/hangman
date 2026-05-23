@@ -22,8 +22,8 @@ def load_game
 end
 
 def new_game
-  puts "Sorry, still building...".yellow
   game = Game.new
+  game.display
   game.make_guess
   play_hagman
 end

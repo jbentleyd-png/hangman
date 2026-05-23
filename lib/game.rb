@@ -3,11 +3,19 @@ class Game
   def initialize
     @word = Word.new 
     @alphabet = Alphabet.new
+    @first_turn = true
   end
 
   def display
-    @word.display
-    @alphabet.display
+    if @first_turn 
+      puts "\nNew Word:".green
+      @word.display
+      puts "\n\n"
+      @first_turn = false
+    else
+      @word.display
+      @alphabet.display
+    end
   end
 
   def make_guess

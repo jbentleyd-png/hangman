@@ -17,7 +17,7 @@ def ask_game_mode
 end
 
 def load_game
-  puts "Sorry, we can't do that yet.".red
+  puts "Sorry, fool, we can't do that yet.".red
   play_hagman
 end
 

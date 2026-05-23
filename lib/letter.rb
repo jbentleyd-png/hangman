@@ -10,7 +10,6 @@ class Letter
   def guess(guessed_letter)
     return false unless guessed_letter == @name
     @guessed = true
-    p @guessed
     return true
   end
 end

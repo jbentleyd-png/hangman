@@ -7,7 +7,6 @@ class Word
   
   def initialize
     @word_from_file = WORD_LIST[rand(WORD_LIST.length)]
-    p @word_from_file
     @word_to_chars = @word_from_file.upcase.chars
     #take word and trun into word array of hashes
     @word_array = []
@@ -40,7 +39,6 @@ class Word
 
   def solved?
     solved_status = @word_array.all? { |space| space.guessed }
-    p solved_status
     solved_status
   end
 

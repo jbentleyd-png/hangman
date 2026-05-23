@@ -18,9 +18,18 @@ class Game
     end
   end
 
-  def make_guess
+  def grab_verified_letter
     print 'Guess a letter: '
     letter = gets.chomp.upcase
+    until @alphabet.unguessed.include?(letter)
+      print 'Please choose a single, unchosen letter: '
+    letter = gets.chomp.upcase
+    end
+    letter
+  end
+
+  def make_guess
+    letter = grab_verified_letter
     is_correct = @word.guess(letter)
     @alphabet.guess(letter, is_correct)
     self.display
@@ -28,7 +37,7 @@ class Game
 
   def result_message
     if @word.solved? 
-      print "YOU WIN!!!!".green
+      print "YOU WIN!!!!".blue
     else  
       print "GAME OVER.".red 
     end

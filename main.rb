@@ -23,9 +23,7 @@ end
 
 def new_game
   game = Game.new
-  game.display
-  game.make_guess
-  play_hagman
+  game.play_game
 end
 
 def play_hagman

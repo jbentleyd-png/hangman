@@ -1,5 +1,5 @@
 class Alphabet
-  attr_reader :guessed
+  attr_reader :guessed, :incorrect_letters_guessed
 
   def initialize
     @unguessed = ("A".."Z").to_a

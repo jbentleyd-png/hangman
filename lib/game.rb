@@ -8,7 +8,7 @@ class Game
 
   def display
     if @first_turn 
-      puts "\nNew Word:".green
+      puts "\nNew Word (#{@word.word_array.length} letters):".green
       @word.display
       puts "\n\n"
       @first_turn = false
@@ -24,5 +24,20 @@ class Game
     is_correct = @word.guess(letter)
     @alphabet.guess(letter, is_correct)
     self.display
+  end
+
+  def result_message
+    if @word.solved? 
+      print "YOU WIN!!!!".green
+    else  
+      print "GAME OVER.".red 
+    end
+    puts "  Word: '#{@word.word_from_file}'\n\n"
+  end
+
+  def play_game
+    self.display
+    self.make_guess until @alphabet.incorrect_letters_guessed.length == 6 || @word.solved?
+    result_message
   end
 end

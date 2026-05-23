@@ -3,21 +3,22 @@ require_relative 'word_list'
 class Word
   
   attr_accessor :word_array
+  attr_reader :word_from_file
   
   def initialize
     @word_from_file = WORD_LIST[rand(WORD_LIST.length)]
     p @word_from_file
     @word_to_chars = @word_from_file.upcase.chars
     #take word and trun into word array of hashes
-    @word_arrray = []
+    @word_array = []
     @word_to_chars.each do |letter|
-      @word_arrray.push Letter.new(letter)
+      @word_array.push Letter.new(letter)
     end
   end
 
   def guess(letter)
     is_correct = false
-    @word_arrray.each do |space|
+    @word_array.each do |space|
       if space.guess(letter)
         is_correct = true
       end
@@ -27,7 +28,7 @@ class Word
 
   def display
     display_word = []
-    @word_arrray.each do |space|
+    @word_array.each do |space|
       if space.guessed
         display_word.push space.name
       else
@@ -36,4 +37,11 @@ class Word
     end
     print "\n\t#{display_word.join('')}"
   end
+
+  def solved?
+    solved_status = @word_array.all? { |space| space.guessed }
+    p solved_status
+    solved_status
+  end
+
 end

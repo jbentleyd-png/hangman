@@ -1,6 +1,6 @@
 require 'colorize'
 
-require_relative 'lib/aplhabet'
+require_relative 'lib/alphabet'
 require_relative 'lib/game'
 require_relative 'lib/letter'
 require_relative 'lib/word'
@@ -13,8 +13,7 @@ def ask_game_mode
   puts 'New Game ("N") or Load Game ("L")?'
   puts 'Type "exit" to quit the game.'.gray
   print 'Game Mode: '
-  game_mode = gets.chomp.upcase
-  game_mode
+  gets.chomp.upcase
 end
 
 def load_game

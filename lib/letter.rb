@@ -8,7 +8,9 @@ class Letter
   end
 
   def guess(guessed_letter)
-    return unless guessed_letter == @name
+    return false unless guessed_letter == @name
     @guessed = true
+    p @guessed
+    return true
   end
 end

@@ -13,13 +13,16 @@ class Word
     @word_to_chars.each do |letter|
       @word_arrray.push Letter.new(letter)
     end
-    p @word_arrray
   end
 
   def guess(letter)
+    is_correct = false
     @word_arrray.each do |space|
-      space.guess(letter)
+      if space.guess(letter)
+        is_correct = true
+      end
     end
+    is_correct
   end
 
   def display
@@ -31,6 +34,6 @@ class Word
         display_word.push '_'
       end
     end
-    puts display_word.join('')
+    print "\n\t#{display_word.join('')}"
   end
 end

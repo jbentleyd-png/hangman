@@ -8,8 +8,9 @@ class Game
   def make_guess
     print 'Guess a letter: '
     letter = gets.chomp.upcase
-    @word.guess(letter)
-    @alphabet.guess(letter)
+    is_correct = @word.guess(letter)
+    @alphabet.guess(letter, is_correct)
     @word.display
+    @alphabet.display
   end
 end

@@ -1,0 +1,23 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    colorize (1.1.0)
+    rack (3.2.6)
+    robocop (0.1.1)
+      rack
+
+PLATFORMS
+  ruby
+  x86_64-darwin-25
+
+DEPENDENCIES
+  colorize (~> 1.1)
+  robocop (~> 0.1.1)
+
+CHECKSUMS
+  colorize (1.1.0) sha256=30b5237f0603f6662ab8d1fc2bd4a96142b806c6415d79e45ef5fdc6a0cfc837
+  rack (3.2.6) sha256=5ed78e1f73b2e25679bec7d45ee2d4483cc4146eb1be0264fc4d94cb5ef212c2
+  robocop (0.1.1) sha256=7ac834e5ba200208806fc37c45cc3f6ba6cdbfa56fca73f2656fca9674439e97
+
+BUNDLED WITH
+  4.0.11

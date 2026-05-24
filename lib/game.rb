@@ -38,10 +38,10 @@ class Game
   end
 
   def grab_verified_letter
-    puts "Type 'save' to save and exit the game.".gray
+    puts "Type 'save' to save and exit the game, or 'exit' to quit without saving.".gray
     print 'Guess a letter: '
     letter = gets.chomp.upcase
-    until @alphabet.unguessed.include?(letter) || letter == "SAVE"
+    until @alphabet.unguessed.include?(letter) || letter == "SAVE" || letter == "EXIT"
       print 'Please choose a single, unchosen letter: '
     letter = gets.chomp.upcase
     end
@@ -50,18 +50,25 @@ class Game
 
   def make_guess
     letter = grab_verified_letter
-    if letter == "SAVE"
+    case letter
+    when "SAVE"
       self.save
       print "Game saved. ".green
       puts "Exiting game.".red
-      return 'saved'
+      return 'exited'
+    when "EXIT"
+      puts "Exiting game.".red
+      return 'exited'
+    else
+      is_correct = @word.guess(letter)
+      @alphabet.guess(letter, is_correct)
     end
-    is_correct = @word.guess(letter)
-    @alphabet.guess(letter, is_correct)
   end
 
   def play_round
-    make_guess
+    if make_guess == 'exited'
+      return 'exited'
+    end
     self.display
   end
 
@@ -76,7 +83,9 @@ class Game
 
   def play_game
     self.display
-    self.play_round until @alphabet.incorrect_letters_guessed.length == 9 || @word.solved?
+    until @alphabet.incorrect_letters_guessed.length == 9 || @word.solved? do
+      return if self.play_round == 'exited'
+    end
     result_message
   end
 

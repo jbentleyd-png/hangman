@@ -12,4 +12,12 @@ class Letter
     @guessed = true
     return true
   end
+
+  def to_hash
+    {
+      name: @name,
+      guessed: @guessed
+    }
+  end
+
 end

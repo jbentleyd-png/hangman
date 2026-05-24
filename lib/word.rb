@@ -42,4 +42,11 @@ class Word
     solved_status
   end
 
+  def to_hash
+    {
+      word_from_file: @word_from_file,
+      word_to_chars: @word_to_chars,
+      word_array: @word_array.map {|letter| letter.to_hash}
+    }
+  end
 end

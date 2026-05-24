@@ -24,5 +24,12 @@ class Alphabet
     puts "#{9 - @incorrect_letters_guessed.length} wrong guesses remaining.\n".red
   end
 
+  def to_hash
+    {
+      unguessed: @unguessed, 
+      incorrect_letters_guessed: @incorrect_letters_guessed 
+    }
+  end
+
 end
 

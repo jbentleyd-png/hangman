@@ -49,4 +49,12 @@ class Game
     self.make_guess until @alphabet.incorrect_letters_guessed.length == 9 || @word.solved?
     result_message
   end
+
+  def to_hash
+    {
+    word: @word.to_hash,
+    alphabet: @alphabet.to_hash,
+    first_turn: @first_turn
+  }
+  end
 end

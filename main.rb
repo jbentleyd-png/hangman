@@ -1,4 +1,5 @@
 require 'colorize'
+require 'json'
 
 require_relative 'lib/alphabet'
 require_relative 'lib/game'
@@ -26,6 +27,8 @@ def new_game
   game = Game.new
   game.play_game
 end
+
+
 
 def play_hagman
   

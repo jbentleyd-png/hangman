@@ -20,4 +20,11 @@ class Letter
     }
   end
 
+  def self.from_hash(letter_hash)
+    new_letter = Letter.allocate
+    new_letter.instance_variable_set(:@name, letter_hash[:name])
+    new_letter.instance_variable_set(:@guessed, letter_hash[:guessed])
+    new_letter
+  end
+
 end

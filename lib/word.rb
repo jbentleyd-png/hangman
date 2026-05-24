@@ -49,4 +49,14 @@ class Word
       word_array: @word_array.map {|letter| letter.to_hash}
     }
   end
+
+  def self.from_hash(word_hash)
+    new_word = Word.allocate
+    new_word.instance_variable_set(:@word_from_file, word_hash[:word_from_file])
+    new_word.instance_variable_set(:@word_to_chars, word_hash[:word_to_chars])
+    new_word.instance_variable_set(:@word_array, word_hash[:word_array])
+    # we have an attr_accessor for word_array, so we can mess with it:
+    new_word.word_array.map! {|letter| Letter.from_hash(letter)} # bang because we need to modify it in-place
+    new_word
+  end
 end

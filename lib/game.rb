@@ -14,6 +14,14 @@ class Game
   }
   end
 
+  def self.from_hash(game_hash)
+    new_game = Game.allocate
+    new_game.instance_variable_set(:@word, Word.from_hash(game_hash[:word]))
+    new_game.instance_variable_set(:@alphabet, Alphabet.from_hash(game_hash[:alphabet]))
+    new_game.instance_variable_set(:@first_turn, game_hash[:first_turn])
+    new_game
+  end
+
   def save
     save_string = JSON.generate(self.to_hash)
     save_dir = File.join(__dir__, "..", "saved_games")
@@ -29,6 +37,7 @@ class Game
     end
     File.write(File.join(save_dir, "save#{save_number}.json"), save_string)
   end
+
 
 
   def display

@@ -31,5 +31,12 @@ class Alphabet
     }
   end
 
+  def self.from_hash(alph_hash)
+    new_alphabet = Alphabet.allocate
+    new_alphabet.instance_variable_set(:@unguessed, alph_hash[:unguessed])
+    new_alphabet.instance_variable_set(:@incorrect_letters_guessed, alph_hash[:incorrect_letters_guessed])
+    new_alphabet
+  end
+
 end
 

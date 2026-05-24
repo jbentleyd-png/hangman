@@ -20,7 +20,7 @@ class Game
     save_number = Dir.glob(File.join(save_dir, "*json")).length # length of array of all .jsons in that directory
     if save_number >= 3 
       puts "Insufficient space. May not save more than 3 games.".red
-      return
+      return 'save_failed'
     else 
       print "Game saved. ".green
     end
@@ -58,7 +58,9 @@ class Game
     letter = grab_verified_letter
     case letter
     when "SAVE"
-      self.save
+      if self.save == 'save_failed'
+        return
+      end
       puts "Exiting game.".red
       return 'exited'
     when "EXIT"

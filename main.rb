@@ -6,6 +6,7 @@ require_relative 'lib/letter'
 require_relative 'lib/word'
 require_relative 'lib/word_list'
 
+
 GAME_MODES = %w[L N EXIT].freeze
 
 def ask_game_mode

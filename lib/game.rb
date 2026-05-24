@@ -46,7 +46,7 @@ class Game
 
   def play_game
     self.display
-    self.make_guess until @alphabet.incorrect_letters_guessed.length == 6 || @word.solved?
+    self.make_guess until @alphabet.incorrect_letters_guessed.length == 9 || @word.solved?
     result_message
   end
 end

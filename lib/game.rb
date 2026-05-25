@@ -5,6 +5,7 @@ class Game
     @alphabet = Alphabet.new
     @first_turn = true
     @save_number = nil
+    @game_over = false
   end
 
   def to_hash
@@ -12,7 +13,8 @@ class Game
     word: @word.to_hash,
     alphabet: @alphabet.to_hash,
     first_turn: @first_turn,
-    save_number: @save_number
+    save_number: @save_number,
+    game_over: @game_over
   }
   end
 
@@ -22,10 +24,11 @@ class Game
     new_game.instance_variable_set(:@alphabet, Alphabet.from_hash(game_hash[:alphabet]))
     new_game.instance_variable_set(:@first_turn, game_hash[:first_turn])
     new_game.instance_variable_set(:@save_number, game_hash[:save_number])
+    new_game.instance_variable_set(:@game_over, game_hash[:game_over])
     new_game
   end
 
-  def save
+  def save(game_over)
     save_dir = File.join(__dir__, "..", "saved_games")
     total_files = Dir.glob(File.join(save_dir, "*json")).length # length of array of all .jsons in that directory
 
@@ -39,12 +42,13 @@ class Game
       while File.exist?(File.join(save_dir, "save#{@save_number}.json"))
         @save_number += 1
       end
-      puts "save_number increased to #{@save_number}"
     end # if @save_number != nil, it stays untouched
     
     save_string = JSON.generate(self.to_hash)
-    File.write(File.join(save_dir, "save#{@save_number}.json"), save_string)
-    print "Game saved. ".green
+    save_path = File.join(save_dir, "save#{@save_number}.json")
+    File.write(save_path, save_string)
+    print "Game saved. ".green unless game_over 
+    save_path
   end
 
 
@@ -75,7 +79,7 @@ class Game
     letter = grab_verified_letter
     case letter
     when "SAVE"
-      if self.save == 'save_failed'
+      if self.save(@game_over) == 'save_failed'
         return
       end
       puts "Exiting game.".red
@@ -110,7 +114,9 @@ class Game
     until @alphabet.incorrect_letters_guessed.length == 9 || @word.solved? do
       return if self.play_round == 'exited'
     end
+    @game_over = true
     result_message
+    File.delete(save(@game_over))
   end
 
 

@@ -4,13 +4,15 @@ class Game
     @word = Word.new 
     @alphabet = Alphabet.new
     @first_turn = true
+    @save_number = nil
   end
 
   def to_hash
     {
     word: @word.to_hash,
     alphabet: @alphabet.to_hash,
-    first_turn: @first_turn
+    first_turn: @first_turn,
+    save_number: @save_number
   }
   end
 
@@ -19,25 +21,31 @@ class Game
     new_game.instance_variable_set(:@word, Word.from_hash(game_hash[:word]))
     new_game.instance_variable_set(:@alphabet, Alphabet.from_hash(game_hash[:alphabet]))
     new_game.instance_variable_set(:@first_turn, game_hash[:first_turn])
+    new_game.instance_variable_set(:@save_number, game_hash[:save_number])
     new_game
   end
 
   def save
-    save_string = JSON.generate(self.to_hash)
     save_dir = File.join(__dir__, "..", "saved_games")
-    save_number = Dir.glob(File.join(save_dir, "*json")).length # length of array of all .jsons in that directory
-    if save_number >= 3 
+    total_files = Dir.glob(File.join(save_dir, "*json")).length # length of array of all .jsons in that directory
+
+    if @save_number == nil && total_files >= 3 
       puts "Insufficient space. May not save more than 3 games.".red
       return 'save_failed'
-    else 
-      print "Game saved. ".green
     end
-    while File.exist?(File.join(save_dir, "save#{save_number}.json"))
-      save_number += 1
-    end
-    File.write(File.join(save_dir, "save#{save_number}.json"), save_string)
-  end
 
+    if @save_number == nil
+      @save_number = total_files
+      while File.exist?(File.join(save_dir, "save#{@save_number}.json"))
+        @save_number += 1
+      end
+      puts "save_number increased to #{@save_number}"
+    end # if @save_number != nil, it stays untouched
+    
+    save_string = JSON.generate(self.to_hash)
+    File.write(File.join(save_dir, "save#{@save_number}.json"), save_string)
+    print "Game saved. ".green
+  end
 
 
   def display

@@ -1,8 +1,10 @@
-class Alphabet
+# frozen_string_literal: true
+
+class Alphabet # :nodoc:
   attr_reader :guessed, :incorrect_letters_guessed, :unguessed
 
   def initialize
-    @unguessed = ("A".."Z").to_a
+    @unguessed = ('A'..'Z').to_a
     @incorrect_letters_guessed = []
   end
 
@@ -10,24 +12,23 @@ class Alphabet
     @unguessed.delete(letter)
     if is_correct
       puts 'Correct!'.green
-      return
-    else 
+      nil
+    else
       @incorrect_letters_guessed.push(letter)
     end
-
-  end 
+  end
 
   def display
     guesses_message = "    Wrong Guesses: #{@incorrect_letters_guessed.join(',').red} | "
-    guesses_message = "    Wrong Guesses: none | "if @incorrect_letters_guessed.length == 0
+    guesses_message = '    Wrong Guesses: none | ' if @incorrect_letters_guessed.empty?
     print guesses_message
     puts "#{9 - @incorrect_letters_guessed.length} wrong guesses remaining.\n".red
   end
 
   def to_hash
     {
-      unguessed: @unguessed, 
-      incorrect_letters_guessed: @incorrect_letters_guessed 
+      unguessed: @unguessed,
+      incorrect_letters_guessed: @incorrect_letters_guessed
     }
   end
 
@@ -37,6 +38,4 @@ class Alphabet
     new_alphabet.instance_variable_set(:@incorrect_letters_guessed, alph_hash[:incorrect_letters_guessed])
     new_alphabet
   end
-
 end
-

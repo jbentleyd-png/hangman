@@ -1,4 +1,6 @@
-class Letter
+# frozen_string_literal: true
+
+class Letter # :nodoc:
   attr_accessor :guessed
   attr_reader :name
 
@@ -9,8 +11,9 @@ class Letter
 
   def guess(guessed_letter)
     return false unless guessed_letter == @name
+
     @guessed = true
-    return true
+    true
   end
 
   def to_hash
@@ -26,5 +29,4 @@ class Letter
     new_letter.instance_variable_set(:@guessed, letter_hash[:guessed])
     new_letter
   end
-
 end

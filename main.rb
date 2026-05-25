@@ -18,9 +18,32 @@ def ask_game_mode
   gets.chomp.upcase
 end
 
+
+def show_save_files(save_file_array)
+  display_files = save_file_array.map { |path| path[-10...-5]}
+  allowed_game_numbers = display_files.map { |title| title[4..]} # grabs whatever follows "save"
+  puts "\nSaved Game Files:".green
+  puts display_files
+  puts"\nChoose a save file by typing its number."
+  puts "  e.g. to access save0, type '0'".gray
+  print "Choose save file: ".green
+  allowed_game_numbers
+end
+
+def select_file(allowed_game_numbers)
+    chosen_file_number = gets.chomp
+  until allowed_game_numbers.include?(chosen_file_number)
+    print "Please choose a valid file number:".red
+    chosen_file_number = gets.chomp
+  end
+  chosen_file_number
+end
+
 def load_game
-  puts "Sorry, fool, we can't do that yet.".red
-  play_hagman
+  save_dir = File.join(__dir__, "saved_games")
+  save_file_array = Dir.glob(File.join(save_dir, "*json"))
+  allowed_game_numbers = show_save_files(save_file_array)
+  select_file(allowed_game_numbers)
 end
 
 def new_game

@@ -29,8 +29,7 @@ class Game # :nodoc:
     new_game
   end
 
-  def save(game_over)
-    save_dir = File.join(__dir__, '..', 'saved_games')
+  def fetch_save_number(save_dir)
     total_files = Dir.glob(File.join(save_dir, '*json')).length # length of array of all .jsons in that directory
 
     if @save_number.nil? && total_files >= 3
@@ -38,10 +37,15 @@ class Game # :nodoc:
       return 'save_failed'
     end
 
-    if @save_number.nil?
-      @save_number = total_files
-      @save_number += 1 while File.exist?(File.join(save_dir, "save#{@save_number}.json"))
-    end
+    return unless @save_number.nil?
+
+    @save_number = total_files
+    @save_number += 1 while File.exist?(File.join(save_dir, "save#{@save_number}.json"))
+  end
+
+  def save(game_over)
+    save_dir = File.join(__dir__, '..', 'saved_games')
+    return if fetch_save_number(save_dir) == 'save_failed'
 
     save_string = JSON.generate(to_hash)
     save_path = File.join(save_dir, "save#{@save_number}.json")

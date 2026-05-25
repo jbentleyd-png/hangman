@@ -30,20 +30,29 @@ def show_save_files(save_file_array)
   allowed_game_numbers
 end
 
-def select_file(allowed_game_numbers)
-    chosen_file_number = gets.chomp
+def select_file_number(allowed_game_numbers)
+  chosen_file_number = gets.chomp
   until allowed_game_numbers.include?(chosen_file_number)
-    print "Please choose a valid file number:".red
+    print "Please choose a valid file number: ".red
     chosen_file_number = gets.chomp
   end
   chosen_file_number
 end
 
-def load_game
-  save_dir = File.join(__dir__, "saved_games")
+def select_file_path(save_dir)
   save_file_array = Dir.glob(File.join(save_dir, "*json"))
   allowed_game_numbers = show_save_files(save_file_array)
-  select_file(allowed_game_numbers)
+  chosen_file_number =  select_file_number(allowed_game_numbers)
+  save_file_array.find { |file| file.end_with?("#{chosen_file_number}.json")}
+end
+
+def load_game
+  save_dir = File.join(__dir__, "saved_games")
+  chosen_file_path = select_file_path(save_dir)
+  json_string = File.read(chosen_file_path)
+  json_parsed = JSON.parse(json_string, symbolize_names: true)
+  game = Game.from_hash(json_parsed)
+  game.play_game
 end
 
 def new_game
